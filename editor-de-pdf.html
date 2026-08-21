@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de PDF online e gratuito — ArquivoLab</title>
+<meta name="description" content="Edite o texto que já existe no seu PDF, adicione texto novo, imagens, formas e assinatura — direto no navegador. Sem upload para servidores, sem cadastro, 100% grátis.">
+<meta name="keywords" content="editor de pdf online, editar texto de pdf, editar pdf gratis, adicionar texto no pdf, assinar pdf online">
+<link rel="canonical" href="https://arquivolab.app/editor-de-pdf.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ArquivoLab">
+<meta property="og:title" content="Editor de PDF online e gratuito — ArquivoLab">
+<meta property="og:description" content="Edite o texto que já existe no seu PDF, adicione texto, imagens, formas e assinatura direto no navegador.">
+<meta property="og:url" content="https://arquivolab.app/editor-de-pdf.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Editor de PDF ArquivoLab",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"},
+  "url": "https://arquivolab.app/editor-de-pdf.html"
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#FFFFFF; --bg-soft:#F4F6FC; --surface:#FFFFFF;
+    --border:#E6E9F2; --border-strong:#D7DCEA;
+    --text-primary:#13151F; --text-secondary:#5B5F70; --text-faint:#9297A6;
+    --blue:#2F6FED; --blue-dark:#1F4FC4; --blue-tint:#EAF1FE;
+    --purple:#7C5CFC; --pink:#E23F72; --pink-tint:#FDEBF0;
+    --green:#16A34A; --green-tint:#E9F8EF;
+    --amber:#E8A33D; --amber-tint:#FCF3E4;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text-primary);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,.disp{font-family:'Sora',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;}
+  .logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .crumb{font-size:13px;color:var(--text-faint);}
+  .crumb a{color:var(--text-secondary);}
+  .crumb a:hover{color:var(--blue);}
+
+  .hero-strip{padding:34px 0 8px;text-align:center;}
+  .hero-strip h1{font-size:26px;margin:0 0 6px;font-weight:700;}
+  .hero-strip p{margin:0;color:var(--text-secondary);font-size:14.5px;}
+
+  .editor-wrap{max-width:1160px;margin:0 auto;padding:28px 24px 80px;}
+
+  .upload-panel{
+    border:1.5px dashed var(--border-strong);
+    border-radius:16px;
+    padding:52px 24px;
+    text-align:center;
+    background:var(--bg-soft);
+    cursor:pointer;
+  }
+  .upload-panel:hover{border-color:var(--pink);}
+  .upload-panel input{display:none;}
+  .upload-ic{width:52px;height:52px;border-radius:12px;background:var(--pink-tint);color:var(--pink);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+  .upload-title{font-weight:600;font-size:15.5px;margin-bottom:6px;}
+  .upload-sub{font-size:13px;color:var(--text-faint);}
+
+  .workspace{display:none;gap:20px;}
+  .workspace.active{display:flex;}
+
+  .toolbar{
+    width:222px;flex-shrink:0;
+    position:sticky;top:78px;align-self:flex-start;
+    display:flex;flex-direction:column;gap:6px;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:14px;
+    max-height:calc(100vh - 100px);
+    overflow-y:auto;
+  }
+  .tb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin:10px 4px 4px;}
+  .tb-label:first-child{margin-top:0;}
+  .tb-btn{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:9px;border:1px solid transparent;
+    background:none;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text-secondary);
+    text-align:left;width:100%;font-family:'Inter',sans-serif;
+  }
+  .tb-btn:hover{background:var(--bg-soft);}
+  .tb-btn.active{background:var(--pink-tint);color:var(--pink);border-color:var(--pink-tint);}
+  .tb-btn .ic{width:18px;height:18px;flex-shrink:0;display:flex;}
+  .tb-btn input[type=file]{display:none;}
+  .tb-hint{font-size:11.5px;color:var(--text-faint);padding:0 4px;margin-top:4px;line-height:1.5;min-height:34px;}
+  .tb-download{
+    margin-top:10px;
+    background:var(--text-primary);color:#fff;
+    padding:12px;border-radius:10px;border:none;
+    font-weight:600;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .tb-download:hover{background:var(--blue-dark);}
+  .tb-download:disabled{opacity:.5;cursor:not-allowed;}
+  .tb-new{
+    font-size:12.5px;color:var(--text-faint);text-align:center;cursor:pointer;margin-top:4px;
+  }
+  .tb-new:hover{color:var(--text-primary);}
+
+  .side-panel{
+    width:230px;flex-shrink:0;
+    position:sticky;top:78px;align-self:flex-start;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:16px;
+  }
+  .sp-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:12px;}
+  .sp-empty{font-size:12.5px;color:var(--text-faint);line-height:1.6;}
+  .sp-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .sp-field label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);}
+  .sp-field select,.sp-field input[type=number]{
+    font-family:'Inter',sans-serif;font-size:13px;padding:8px 9px;
+    border:1px solid var(--border-strong);border-radius:8px;background:#fff;color:var(--text-primary);
+  }
+  .sp-row2{display:flex;gap:10px;}
+  .sp-row2 .sp-field{flex:1;margin-bottom:14px;}
+  .sp-toggle-row{display:flex;gap:6px;}
+  .sp-toggle{
+    flex:1;border:1px solid var(--border-strong);background:#fff;border-radius:8px;
+    padding:8px 0;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--text-secondary);
+    font-family:'Inter',sans-serif;
+  }
+  .sp-toggle.on{background:var(--text-primary);color:#fff;border-color:var(--text-primary);}
+  .sp-swatch-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .sp-swatch{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border-strong);cursor:pointer;flex-shrink:0;}
+  .sp-swatch.selected{outline:2px solid var(--blue);outline-offset:2px;}
+  .sp-field input[type=color]{
+    width:28px;height:28px;padding:0;border:1px solid var(--border-strong);border-radius:50%;
+    cursor:pointer;background:none;flex-shrink:0;
+  }
+
+  .pages{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:24px;}
+  .page-shell{
+    position:relative;
+    background:#fff;
+    box-shadow:0 4px 24px -8px rgba(20,30,60,.18);
+    border:1px solid var(--border);
+    line-height:0;
+  }
+  .page-shell canvas{display:block;max-width:100%;height:auto;}
+  .page-overlay{position:absolute;inset:0;}
+  .page-overlay.mode-rect{cursor:crosshair;}
+  .page-overlay.mode-edit{cursor:pointer;}
+  .page-overlay.mode-erase{cursor:cell;}
+  .page-num{
+    font-size:12px;color:var(--text-faint);font-family:'Sora',sans-serif;
+  }
+
+  .el{
+    position:absolute;
+    cursor:move;
+    user-select:none;
+    border:1px solid transparent;
+    line-height:0;
+  }
+  .el.selected{border-color:var(--blue);}
+  .el-text{
+    padding:2px 4px;
+    outline:none;
+    min-width:20px;
+    white-space:pre-wrap;
+    font-family:Arial,'Inter',sans-serif;
+    line-height:1.15;
+  }
+  .el-image{width:100%;height:100%;object-fit:contain;pointer-events:none;}
+  .el-rect{background:rgba(47,111,237,.12);border:1.5px solid var(--blue);}
+  .el-cover{background:#ffffff;cursor:default;}
+  .el-remove{
+    position:absolute;top:-11px;right:-11px;
+    width:20px;height:20px;border-radius:50%;
+    background:var(--pink);color:#fff;
+    display:none;align-items:center;justify-content:center;
+    cursor:pointer;font-size:12px;border:2px solid #fff;
+    line-height:1;z-index:5;
+  }
+  .el.selected .el-remove{display:flex;}
+  .el-resize{
+    position:absolute;bottom:-6px;right:-6px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--blue);border:2px solid #fff;
+    display:none;cursor:nwse-resize;
+  }
+  .el.selected .el-resize{display:block;}
+
+  .sig-modal-bg{
+    display:none;position:fixed;inset:0;background:rgba(15,17,26,.5);
+    z-index:100;align-items:center;justify-content:center;padding:20px;
+  }
+  .sig-modal-bg.open{display:flex;}
+  .sig-modal{
+    background:#fff;border-radius:16px;padding:22px;width:100%;max-width:480px;
+  }
+  .sig-modal h3{margin:0 0 4px;font-size:17px;}
+  .sig-modal p{margin:0 0 14px;font-size:13px;color:var(--text-secondary);}
+  .sig-pad{
+    border:1.5px dashed var(--border-strong);border-radius:10px;
+    background:var(--bg-soft);touch-action:none;width:100%;height:180px;
+  }
+  .sig-actions{display:flex;justify-content:space-between;margin-top:16px;gap:10px;}
+  .btn{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:9px;border:1px solid var(--border-strong);background:#fff;color:var(--text-secondary);cursor:pointer;}
+  .btn:hover{border-color:var(--text-faint);color:var(--text-primary);}
+  .btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;}
+  .btn.primary:hover{background:#c92f5f;}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--text-primary);color:#fff;padding:12px 18px;border-radius:10px;
+    font-size:13.5px;z-index:200;opacity:0;pointer-events:none;transition:opacity .2s ease;
+    max-width:88vw;text-align:center;
+  }
+  .toast.show{opacity:1;}
+
+  @media (max-width:800px){
+    .workspace.active{flex-direction:column;}
+    .toolbar{width:100%;position:static;flex-direction:row;flex-wrap:wrap;max-height:none;}
+    .tb-label{display:none;}
+    .side-panel{width:100%;position:static;order:3;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M7 12h10M7 17h6"/></svg></span>
+      ArquivoLab
+    </a>
+    <span class="crumb"><a href="index.html">Início</a> / Editor de PDF</span>
+  </div>
+</header>
+
+<div class="hero-strip">
+  <h1>Editor de PDF</h1>
+  <p>Reescreva o texto que já existe no arquivo, ou adicione texto, imagens e assinatura — depois baixe o PDF editado.</p>
+</div>
+
+<div class="editor-wrap">
+
+  <div class="upload-panel" id="uploadPanel" tabindex="0" role="button" aria-label="Selecionar PDF para editar">
+    <input type="file" id="pdfInput" accept="application/pdf">
+    <div class="upload-ic">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V4M12 4l-4 4M12 4l4 4"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+    </div>
+    <div class="upload-title">Envie um PDF para começar a editar</div>
+    <div class="upload-sub">Arraste o arquivo aqui ou clique para escolher — o arquivo não sai do seu navegador</div>
+  </div>
+
+  <div class="workspace" id="workspace">
+    <div class="toolbar">
+      <div class="tb-label">Texto existente</div>
+      <button class="tb-btn" data-tool="editText">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></span>
+        Editar texto do PDF
+      </button>
+      <button class="tb-btn" data-tool="eraseText">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8l-6-6a2 2 0 0 1 0-2.8L14 3.4a2 2 0 0 1 2.8 0l5.6 5.6a2 2 0 0 1 0 2.8L14 20"/></svg></span>
+        Apagar texto
+      </button>
+
+      <div class="tb-label">Adicionar</div>
+      <button class="tb-btn" data-tool="text">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></span>
+        Texto novo
+      </button>
+      <button class="tb-btn" id="imageBtn">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+        Imagem
+        <input type="file" id="imageInput" accept="image/*">
+      </button>
+      <button class="tb-btn" id="sigBtn">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17s3-1 5-3 3-6 6-6 2 3 4 1 3-3 3-3M3 21h18"/></svg></span>
+        Assinatura
+      </button>
+      <button class="tb-btn" data-tool="rect">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/></svg></span>
+        Retângulo
+      </button>
+      <div class="tb-hint" id="toolHint">Selecione uma ferramenta e clique na página do PDF.</div>
+      <div class="tb-label">Arquivo</div>
+      <button class="tb-download" id="downloadBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V4M12 4l-4 4M12 4l4 4"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+        Baixar PDF editado
+      </button>
+      <div class="tb-new" id="newFileBtn">enviar outro arquivo</div>
+    </div>
+
+    <div class="pages" id="pages"></div>
+
+    <div class="side-panel">
+      <div class="sp-label">Propriedades do texto</div>
+      <div id="spBody">
+        <div class="sp-empty">Clique num texto (novo ou editado) para ajustar fonte, negrito, itálico e cor — mesmo com a fonte original preservada por padrão.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sig-modal-bg" id="sigModalBg">
+  <div class="sig-modal">
+    <h3>Desenhe sua assinatura</h3>
+    <p>Use o mouse ou o dedo para assinar. Depois clique em "usar assinatura".</p>
+    <canvas class="sig-pad" id="sigPad"></canvas>
+    <div class="sig-actions">
+      <button class="btn" id="sigClear">limpar</button>
+      <div style="display:flex;gap:10px;">
+        <button class="btn" id="sigCancel">cancelar</button>
+        <button class="btn primary" id="sigUse">usar assinatura</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const { StandardFonts } = PDFLib;
+
+let originalBytes = null;
+let pdfDocProxy = null;
+let elements = [];
+let elUid = 0;
+let activeTool = null;
+let selectedElId = null;
+let pendingSignatureDataUrl = null;
+let pendingImage = null;
+
+const pageViewportCache = {};
+const pageTextCache = {};
+const pageCanvasCache = {};
+
+const uploadPanel = document.getElementById('uploadPanel');
+const pdfInput = document.getElementById('pdfInput');
+const workspace = document.getElementById('workspace');
+const pagesEl = document.getElementById('pages');
+const toolHint = document.getElementById('toolHint');
+const toast = document.getElementById('toast');
+
+uploadPanel.addEventListener('click', ()=> pdfInput.click());
+uploadPanel.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') pdfInput.click(); });
+['dragenter','dragover'].forEach(evt=> uploadPanel.addEventListener(evt, e=>{e.preventDefault(); uploadPanel.style.borderColor='var(--pink)';}));
+['dragleave','drop'].forEach(evt=> uploadPanel.addEventListener(evt, e=>{e.preventDefault(); uploadPanel.style.borderColor='';}));
+uploadPanel.addEventListener('drop', e=>{
+  if(e.dataTransfer.files[0]) loadPdf(e.dataTransfer.files[0]);
+});
+pdfInput.addEventListener('change', e=>{
+  if(e.target.files[0]) loadPdf(e.target.files[0]);
+});
+
+document.getElementById('newFileBtn').addEventListener('click', ()=>{
+  elements = []; pdfDocProxy = null; originalBytes = null; activeTool = null; selectedElId = null;
+  pagesEl.innerHTML = '';
+  workspace.classList.remove('active');
+  uploadPanel.style.display = 'block';
+  pdfInput.value = '';
+});
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(()=> toast.classList.remove('show'), 2400);
+}
+
+async function loadPdf(file){
+  if(file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
+    showToast('Selecione um arquivo PDF.');
+    return;
+  }
+  originalBytes = await file.arrayBuffer();
+  const loadingTask = pdfjsLib.getDocument({ data: originalBytes.slice(0) });
+  pdfDocProxy = await loadingTask.promise;
+
+  uploadPanel.style.display = 'none';
+  workspace.classList.add('active');
+  pagesEl.innerHTML = '';
+  elements = [];
+
+  for(let i=1;i<=pdfDocProxy.numPages;i++){
+    await renderPage(i);
+  }
+}
+
+async function renderPage(pageNum){
+  const page = await pdfDocProxy.getPage(pageNum);
+  const viewport = page.getViewport({ scale: 1.4 });
+  pageViewportCache[pageNum] = viewport;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
+  const ctx = canvas.getContext('2d');
+  await page.render({ canvasContext: ctx, viewport }).promise;
+  pageCanvasCache[pageNum] = { canvas, ctx };
+
+  pageTextCache[pageNum] = await page.getTextContent();
+
+  const shell = document.createElement('div');
+  shell.className = 'page-shell';
+  shell.style.width = viewport.width + 'px';
+  shell.dataset.page = pageNum;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'page-overlay';
+  overlay.dataset.page = pageNum;
+
+  shell.appendChild(canvas);
+  shell.appendChild(overlay);
+
+  const label = document.createElement('div');
+  label.className = 'page-num';
+  label.textContent = 'página ' + pageNum + ' de ' + pdfDocProxy.numPages;
+
+  const col = document.createElement('div');
+  col.style.display = 'flex';
+  col.style.flexDirection = 'column';
+  col.style.alignItems = 'center';
+  col.style.gap = '8px';
+  col.appendChild(shell);
+  col.appendChild(label);
+  pagesEl.appendChild(col);
+
+  overlay.addEventListener('click', e=> onOverlayClick(e, overlay, pageNum));
+  overlay.addEventListener('pointerdown', e=> onOverlayPointerDown(e, overlay, pageNum));
+}
+
+/* ---------------- font detection helpers ---------------- */
+function classifyFont(styleFamily){
+  const f = (styleFamily||'').toLowerCase();
+  if(f.indexOf('monospace') !== -1) return 'mono';
+  if(f.indexOf('serif') !== -1 && f.indexOf('sans') === -1) return 'serif';
+  return 'sans';
+}
+function standardFontFor(category, bold, italic){
+  if(category==='serif'){
+    if(bold && italic) return StandardFonts.TimesRomanBoldItalic;
+    if(bold) return StandardFonts.TimesRomanBold;
+    if(italic) return StandardFonts.TimesRomanItalic;
+    return StandardFonts.TimesRoman;
+  }
+  if(category==='mono'){
+    if(bold && italic) return StandardFonts.CourierBoldOblique;
+    if(bold) return StandardFonts.CourierBold;
+    if(italic) return StandardFonts.CourierOblique;
+    return StandardFonts.Courier;
+  }
+  if(bold && italic) return StandardFonts.HelveticaBoldOblique;
+  if(bold) return StandardFonts.HelveticaBold;
+  if(italic) return StandardFonts.HelveticaOblique;
+  return StandardFonts.Helvetica;
+}
+function cssFontFamily(category){
+  if(category==='serif') return "'Times New Roman', Georgia, serif";
+  if(category==='mono') return "'Courier New', monospace";
+  return "Arial, 'Inter', sans-serif";
+}
+function guessBold(fontNameRaw){ return /bold|black|heavy|semibold/i.test(fontNameRaw||''); }
+function guessItalic(fontNameRaw){ return /italic|oblique/i.test(fontNameRaw||''); }
+
+/* find the text item under a canvas pixel point */
+function hitTestTextItem(pageNum, xPix, yPix){
+  const viewport = pageViewportCache[pageNum];
+  const tc = pageTextCache[pageNum];
+  if(!viewport || !tc) return null;
+  for(const item of tc.items){
+    if(!item.str || !item.str.trim()) continue;
+    const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+    const fontHeight = Math.hypot(tx[2], tx[3]) || 10;
+    const scaleX = Math.hypot(tx[0], tx[1]) || 1;
+    const rawWidth = (item.width || item.str.length*fontHeight*0.5) * scaleX;
+    const left = tx[4] - 2;
+    const top = tx[5] - fontHeight - fontHeight*0.12;
+    const width = rawWidth + 4;
+    const height = fontHeight*1.35;
+    if(xPix>=left && xPix<=left+width && yPix>=top && yPix<=top+height){
+      const style = (tc.styles && tc.styles[item.fontName]) || {};
+      const category = classifyFont(style.fontFamily);
+      return {
+        str: item.str, left, top, width, height, fontHeight,
+        category,
+        bold: guessBold(item.fontName) || guessBold(style.fontFamily),
+        italic: guessItalic(item.fontName) || guessItalic(style.fontFamily)
+      };
+    }
+  }
+  return null;
+}
+
+/* sample average dark color under a canvas rect -> hex (used for text color) */
+function sampleColor(pageNum, left, top, w, h){
+  const c = pageCanvasCache[pageNum];
+  if(!c) return '#1a1a1a';
+  try{
+    const ww = Math.max(1, Math.round(w)), hh = Math.max(1, Math.round(h));
+    const x0 = Math.max(0, Math.round(left)), y0 = Math.max(0, Math.round(top));
+    const data = c.ctx.getImageData(x0, y0, Math.min(ww, c.canvas.width-x0), Math.min(hh, c.canvas.height-y0)).data;
+    let r=0,g=0,b=0,n=0;
+    for(let i=0;i<data.length;i+=4){
+      const lum = (data[i]+data[i+1]+data[i+2])/3;
+      if(lum < 200){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; n++; }
+    }
+    if(n===0) return '#1a1a1a';
+    return '#'+[r/n,g/n,b/n].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+  }catch(e){ return '#1a1a1a'; }
+}
+/* sample the page's background color around a rect (avoids the glyph pixels) -> hex, used to cover existing text believably */
+function sampleBackgroundColor(pageNum, left, top, w, h){
+  const c = pageCanvasCache[pageNum];
+  if(!c) return '#ffffff';
+  try{
+    const pad = 3;
+    const candidates = [
+      [left-pad, top-pad], [left+w/2, top-pad], [left+w+pad, top-pad],
+      [left-pad, top+h+pad], [left+w/2, top+h+pad], [left+w+pad, top+h+pad],
+      [left-pad, top+h/2], [left+w+pad, top+h/2]
+    ];
+    let r=0,g=0,b=0,n=0;
+    candidates.forEach(([x,y])=>{
+      const xi = Math.min(c.canvas.width-1, Math.max(0, Math.round(x)));
+      const yi = Math.min(c.canvas.height-1, Math.max(0, Math.round(y)));
+      const d = c.ctx.getImageData(xi, yi, 1, 1).data;
+      r+=d[0]; g+=d[1]; b+=d[2]; n++;
+    });
+    if(n===0) return '#ffffff';
+    return '#'+[r/n,g/n,b/n].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+  }catch(e){ return '#ffffff'; }
+}
+function hexToRgb01(hex){
+  hex = (hex||'#1a1a1a').replace('#','');
+  if(hex.length===3) hex = hex.split('').map(c=>c+c).join('');
+  return {
+    r: parseInt(hex.substring(0,2),16)/255,
+    g: parseInt(hex.substring(2,4),16)/255,
+    b: parseInt(hex.substring(4,6),16)/255
+  };
+}
+
+/* ---------------- toolbar ---------------- */
+document.querySelectorAll('.tb-btn[data-tool]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const tool = btn.dataset.tool;
+    setActiveTool(activeTool===tool ? null : tool);
+  });
+});
+
+function setActiveTool(tool){
+  activeTool = tool;
+  document.querySelectorAll('.tb-btn[data-tool]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tool===tool);
+  });
+  const hints = {
+    editText: 'Clique sobre um texto já existente na página para reescrevê-lo — fonte, tamanho e cor são detectados automaticamente.',
+    eraseText: 'Clique sobre um texto já existente na página para apagá-lo.',
+    text: 'Clique na página para inserir um texto novo. Digite e clique fora para confirmar.',
+    rect: 'Clique e arraste na página para desenhar um retângulo.',
+    null: 'Selecione uma ferramenta e clique na página do PDF.'
+  };
+  toolHint.textContent = hints[tool] || hints[null];
+  document.querySelectorAll('.page-overlay').forEach(o=>{
+    o.classList.toggle('mode-rect', tool==='rect');
+    o.classList.toggle('mode-edit', tool==='editText');
+    o.classList.toggle('mode-erase', tool==='eraseText');
+  });
+}
+
+document.getElementById('imageBtn').addEventListener('click', e=>{
+  if(e.target.tagName==='INPUT') return;
+  document.getElementById('imageInput').click();
+});
+document.getElementById('imageInput').addEventListener('change', e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    pendingImage = reader.result;
+    setActiveTool('image');
+    toolHint.textContent = 'Clique na página onde quer colocar a imagem.';
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+});
+
+/* ---------------- overlay interaction ---------------- */
+function onOverlayClick(e, overlay, pageNum){
+  if(e.target !== overlay) return;
+  const rect = overlay.getBoundingClientRect();
+  const xPix = e.clientX - rect.left;
+  const yPix = e.clientY - rect.top;
+  const xPct = xPix/rect.width, yPct = yPix/rect.height;
+
+  if(activeTool==='text'){
+    addTextElement(overlay, pageNum, xPct, yPct);
+    setActiveTool(null);
+  } else if(activeTool==='image' && pendingImage){
+    addImageElement(overlay, pageNum, xPct, yPct, pendingImage);
+    pendingImage = null;
+    setActiveTool(null);
+  } else if(activeTool==='signature' && pendingSignatureDataUrl){
+    addImageElement(overlay, pageNum, xPct, yPct, pendingSignatureDataUrl, true);
+    pendingSignatureDataUrl = null;
+    setActiveTool(null);
+  } else if(activeTool==='editText'){
+    const hit = hitTestTextItem(pageNum, xPix, yPix);
+    if(hit) editExistingText(overlay, pageNum, hit, rect);
+    else showToast('Nenhum texto detectado nesse ponto — tente clicar bem em cima da palavra.');
+  } else if(activeTool==='eraseText'){
+    const hit = hitTestTextItem(pageNum, xPix, yPix);
+    if(hit) eraseExistingText(overlay, pageNum, hit, rect);
+    else showToast('Nenhum texto detectado nesse ponto — tente clicar bem em cima da palavra.');
+  } else {
+    deselectAll();
+  }
+}
+
+let rectDraft = null;
+function onOverlayPointerDown(e, overlay, pageNum){
+  if(activeTool !== 'rect') return;
+  if(e.target !== overlay) return;
+  const rect = overlay.getBoundingClientRect();
+  const startX = e.clientX - rect.left;
+  const startY = e.clientY - rect.top;
+  const div = document.createElement('div');
+  div.className = 'el el-rect';
+  div.style.left = startX+'px'; div.style.top = startY+'px';
+  div.style.width='1px'; div.style.height='1px';
+  overlay.appendChild(div);
+
+  function onMove(ev){
+    const x = ev.clientX - rect.left, y = ev.clientY - rect.top;
+    const w = Math.abs(x-startX), h = Math.abs(y-startY);
+    div.style.left = Math.min(x,startX)+'px';
+    div.style.top = Math.min(y,startY)+'px';
+    div.style.width = w+'px'; div.style.height = h+'px';
+  }
+  function onUp(){
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+    const w = parseFloat(div.style.width), h = parseFloat(div.style.height);
+    if(w<6 || h<6){ div.remove(); return; }
+    const id = 'el'+(elUid++);
+    div.dataset.id = id;
+    elements.push({
+      id, page: pageNum, type:'rect',
+      xPct: parseFloat(div.style.left)/rect.width,
+      yPct: parseFloat(div.style.top)/rect.height,
+      wPct: w/rect.width, hPct: h/rect.height
+    });
+    makeInteractive(div, overlay);
+    setActiveTool(null);
+  }
+  document.addEventListener('pointermove', onMove);
+  document.addEventListener('pointerup', onUp);
+}
+
+function addTextElement(overlay, pageNum, xPct, yPct){
+  const rect = overlay.getBoundingClientRect();
+  const id = 'el'+(elUid++);
+  const div = document.createElement('div');
+  div.className = 'el el-text selected';
+  div.contentEditable = 'true';
+  div.style.left = (xPct*rect.width)+'px';
+  div.style.top = (yPct*rect.height)+'px';
+  div.style.fontSize = '16px';
+  div.style.color = '#1a1a1a';
+  div.dataset.id = id;
+  div.textContent = 'Texto';
+  overlay.appendChild(div);
+  makeInteractive(div, overlay);
+  elements.push({ id, page: pageNum, type:'text', xPct, yPct, text:'Texto', fontSize:16, color:'#1a1a1a', category:'sans', bold:false, italic:false });
+  selectElement(div);
+
+  setTimeout(()=>{
+    div.focus();
+    document.execCommand('selectAll', false, null);
+  },0);
+  div.addEventListener('input', ()=>{
+    const item = elements.find(el=>el.id===id);
+    if(item) item.text = div.textContent;
+  });
+  div.addEventListener('blur', ()=>{
+    if(!div.textContent.trim()){
+      elements = elements.filter(el=>el.id!==id);
+      div.remove();
+      if(selectedElId===id){ selectedElId=null; updateSidePanel(null); }
+    }
+  });
+}
+
+/* ---------------- edit / erase existing text ---------------- */
+function editExistingText(overlay, pageNum, hit, rect){
+  const colorHex = sampleColor(pageNum, hit.left, hit.top, hit.width, hit.height);
+  const bgHex = sampleBackgroundColor(pageNum, hit.left, hit.top, hit.width, hit.height);
+
+  const coverId = 'el'+(elUid++);
+  const cover = document.createElement('div');
+  cover.className = 'el el-cover';
+  cover.style.left = hit.left+'px';
+  cover.style.top = hit.top+'px';
+  cover.style.width = hit.width+'px';
+  cover.style.height = hit.height+'px';
+  cover.style.background = bgHex;
+  cover.dataset.id = coverId;
+  overlay.appendChild(cover);
+  elements.push({
+    id: coverId, page: pageNum, type:'cover', color: bgHex,
+    xPct: hit.left/rect.width, yPct: hit.top/rect.height,
+    wPct: hit.width/rect.width, hPct: hit.height/rect.height
+  });
+
+  const id = 'el'+(elUid++);
+  const fontSize = hit.fontHeight*0.92;
+  const topPx = hit.top + hit.height - fontSize - hit.height*0.1;
+  const div = document.createElement('div');
+  div.className = 'el el-text selected';
+  div.contentEditable = 'true';
+  div.style.left = (hit.left+2)+'px';
+  div.style.top = topPx+'px';
+  div.style.fontSize = fontSize+'px';
+  div.style.color = colorHex;
+  div.style.fontFamily = cssFontFamily(hit.category);
+  div.style.fontWeight = hit.bold ? '700' : '400';
+  div.style.fontStyle = hit.italic ? 'italic' : 'normal';
+  div.dataset.id = id;
+  div.textContent = hit.str;
+  overlay.appendChild(div);
+
+  elements.push({
+    id, page: pageNum, type:'text', coverId,
+    xPct: (hit.left+2)/rect.width, yPct: topPx/rect.height,
+    text: hit.str, fontSize, color: colorHex,
+    category: hit.category, bold: hit.bold, italic: hit.italic
+  });
+
+  makeInteractive(div, overlay, false, {
+    noDrag: true,
+    onRemove: ()=>{ elements = elements.filter(el=>el.id!==coverId); cover.remove(); }
+  });
+
+  selectElement(div);
+
+  setTimeout(()=>{
+    div.focus();
+    document.execCommand('selectAll', false, null);
+  },0);
+  div.addEventListener('input', ()=>{
+    const item = elements.find(el=>el.id===id);
+    if(item) item.text = div.textContent;
+  });
+}
+
+function eraseExistingText(overlay, pageNum, hit, rect){
+  const id = 'el'+(elUid++);
+  const bgHex = sampleBackgroundColor(pageNum, hit.left, hit.top, hit.width, hit.height);
+  const cover = document.createElement('div');
+  cover.className = 'el el-cover selected';
+  cover.style.left = hit.left+'px';
+  cover.style.top = hit.top+'px';
+  cover.style.width = hit.width+'px';
+  cover.style.height = hit.height+'px';
+  cover.style.background = bgHex;
+  cover.dataset.id = id;
+  overlay.appendChild(cover);
+  elements.push({
+    id, page: pageNum, type:'cover', color: bgHex,
+    xPct: hit.left/rect.width, yPct: hit.top/rect.height,
+    wPct: hit.width/rect.width, hPct: hit.height/rect.height
+  });
+  makeInteractive(cover, overlay, false, { noDrag: true });
+  selectedElId = id;
+  updateSidePanel(null);
+  showToast('Texto apagado — clique em "Baixar PDF editado" para salvar.');
+}
+
+function addImageElement(overlay, pageNum, xPct, yPct, dataUrl, isSig){
+  const rect = overlay.getBoundingClientRect();
+  const id = 'el'+(elUid++);
+  const img = new Image();
+  img.onload = ()=>{
+    const naturalRatio = img.naturalWidth / img.naturalHeight;
+    const wPx = isSig ? 140 : Math.min(180, rect.width*0.4);
+    const hPx = wPx / naturalRatio;
+    const div = document.createElement('div');
+    div.className = 'el el-image-wrap selected';
+    div.style.left = (xPct*rect.width)+'px';
+    div.style.top = (yPct*rect.height)+'px';
+    div.style.width = wPx+'px';
+    div.style.height = hPx+'px';
+    div.dataset.id = id;
+    const inner = document.createElement('img');
+    inner.className = 'el-image';
+    inner.src = dataUrl;
+    div.appendChild(inner);
+    overlay.appendChild(div);
+    makeInteractive(div, overlay, true);
+    elements.push({
+      id, page: pageNum, type:'image', dataUrl,
+      xPct, yPct,
+      wPct: wPx/rect.width, hPct: hPx/rect.height
+    });
+    selectElement(div);
+  };
+  img.src = dataUrl;
+}
+
+function makeInteractive(div, overlay, resizable, opts){
+  opts = opts || {};
+  const removeBtn = document.createElement('div');
+  removeBtn.className = 'el-remove';
+  removeBtn.innerHTML = '&times;';
+  removeBtn.addEventListener('click', ev=>{
+    ev.stopPropagation();
+    elements = elements.filter(el=>el.id!==div.dataset.id);
+    div.remove();
+    if(opts.onRemove) opts.onRemove();
+    if(selectedElId===div.dataset.id){ selectedElId=null; updateSidePanel(null); }
+  });
+  div.appendChild(removeBtn);
+
+  if(resizable){
+    const handle = document.createElement('div');
+    handle.className = 'el-resize';
+    div.appendChild(handle);
+    handle.addEventListener('pointerdown', ev=>{
+      ev.stopPropagation();
+      const rect = overlay.getBoundingClientRect();
+      function onMove(mv){
+        const w = Math.max(20, mv.clientX - div.getBoundingClientRect().left);
+        const h = Math.max(20, mv.clientY - div.getBoundingClientRect().top);
+        div.style.width = w+'px';
+        div.style.height = h+'px';
+        const item = elements.find(el=>el.id===div.dataset.id);
+        if(item){ item.wPct = w/rect.width; item.hPct = h/rect.height; }
+      }
+      function onUp(){
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+      }
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+    });
+  }
+
+  if(!opts.noDrag){
+    div.addEventListener('pointerdown', ev=>{
+      if(ev.target.classList.contains('el-remove') || ev.target.classList.contains('el-resize')) return;
+      if(div.classList.contains('el-text') && document.activeElement===div) return;
+      selectElement(div);
+      const rect = overlay.getBoundingClientRect();
+      const startX = ev.clientX, startY = ev.clientY;
+      const origLeft = parseFloat(div.style.left), origTop = parseFloat(div.style.top);
+      function onMove(mv){
+        const dx = mv.clientX - startX, dy = mv.clientY - startY;
+        div.style.left = (origLeft+dx)+'px';
+        div.style.top = (origTop+dy)+'px';
+        const item = elements.find(el=>el.id===div.dataset.id);
+        if(item){
+          item.xPct = (origLeft+dx)/rect.width;
+          item.yPct = (origTop+dy)/rect.height;
+        }
+      }
+      function onUp(){
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+      }
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+    });
+  } else {
+    div.addEventListener('pointerdown', ev=>{
+      if(ev.target.classList.contains('el-remove')) return;
+      if(div.classList.contains('el-text') && document.activeElement===div) return;
+      ev.stopPropagation();
+      selectElement(div);
+    });
+  }
+}
+
+function selectElement(div){
+  document.querySelectorAll('.el.selected').forEach(el=> el.classList.remove('selected'));
+  div.classList.add('selected');
+  selectedElId = div.dataset.id;
+  updateSidePanel(selectedElId);
+}
+function deselectAll(){
+  document.querySelectorAll('.el.selected').forEach(el=> el.classList.remove('selected'));
+  selectedElId = null;
+  updateSidePanel(null);
+}
+
+function updateSidePanel(id){
+  const spBody = document.getElementById('spBody');
+  const item = id ? elements.find(el=>el.id===id) : null;
+  if(!item || item.type!=='text'){
+    spBody.innerHTML = '<div class="sp-empty">Clique num texto (novo ou editado) para ajustar fonte, negrito, itálico e cor — mesmo com a fonte original preservada por padrão.</div>';
+    return;
+  }
+  const swatchColors = ['#1a1a1a','#B4432F','#1B4F9C','#1E7A3D','#6B4FA0','#D98E2B'];
+  const curColor = (item.color||'#1a1a1a').toLowerCase();
+  spBody.innerHTML = `
+    <div class="sp-field">
+      <label>Família da fonte</label>
+      <select id="ctlFamily">
+        <option value="sans" ${item.category==='sans'?'selected':''}>Sem serifa</option>
+        <option value="serif" ${item.category==='serif'?'selected':''}>Serifada</option>
+        <option value="mono" ${item.category==='mono'?'selected':''}>Monoespaçada</option>
+      </select>
+    </div>
+    <div class="sp-row2">
+      <div class="sp-field">
+        <label>Tamanho</label>
+        <input type="number" id="ctlSize" min="4" max="200" value="${Math.round(item.fontSize)}">
+      </div>
+      <div class="sp-field">
+        <label>Estilo</label>
+        <div class="sp-toggle-row">
+          <button class="sp-toggle ${item.bold?'on':''}" id="ctlBold" type="button">N</button>
+          <button class="sp-toggle ${item.italic?'on':''}" id="ctlItalic" type="button" style="font-style:italic;">I</button>
+        </div>
+      </div>
+    </div>
+    <div class="sp-field">
+      <label>Cor</label>
+      <div class="sp-swatch-row" id="ctlColorRow">
+        ${swatchColors.map(c=>`<span class="sp-swatch ${curColor===c.toLowerCase()?'selected':''}" data-c="${c}" style="background:${c}"></span>`).join('')}
+        <input type="color" id="ctlColorCustom" value="${item.color||'#1a1a1a'}" title="Cor personalizada">
+      </div>
+    </div>
+  `;
+
+  function applyToDiv(){
+    const div = document.querySelector('.el[data-id="'+id+'"]');
+    if(!div) return;
+    div.style.fontFamily = cssFontFamily(item.category);
+    div.style.fontWeight = item.bold ? '700' : '400';
+    div.style.fontStyle = item.italic ? 'italic' : 'normal';
+    div.style.color = item.color;
+    div.style.fontSize = item.fontSize+'px';
+  }
+
+  document.getElementById('ctlFamily').addEventListener('change', e=>{
+    item.category = e.target.value; applyToDiv();
+  });
+  document.getElementById('ctlSize').addEventListener('input', e=>{
+    const v = parseFloat(e.target.value);
+    if(!isNaN(v) && v>0){ item.fontSize = v; applyToDiv(); }
+  });
+  document.getElementById('ctlBold').addEventListener('click', e=>{
+    item.bold = !item.bold; e.currentTarget.classList.toggle('on', item.bold); applyToDiv();
+  });
+  document.getElementById('ctlItalic').addEventListener('click', e=>{
+    item.italic = !item.italic; e.currentTarget.classList.toggle('on', item.italic); applyToDiv();
+  });
+  document.getElementById('ctlColorRow').addEventListener('click', e=>{
+    const sw = e.target.closest('.sp-swatch'); if(!sw) return;
+    item.color = sw.dataset.c;
+    document.querySelectorAll('#ctlColorRow .sp-swatch').forEach(s=>s.classList.remove('selected'));
+    sw.classList.add('selected');
+    document.getElementById('ctlColorCustom').value = item.color;
+    applyToDiv();
+  });
+  document.getElementById('ctlColorCustom').addEventListener('input', e=>{
+    item.color = e.target.value;
+    document.querySelectorAll('#ctlColorRow .sp-swatch').forEach(s=>s.classList.remove('selected'));
+    applyToDiv();
+  });
+}
+
+/* signature modal */
+const sigBtn = document.getElementById('sigBtn');
+const sigModalBg = document.getElementById('sigModalBg');
+const sigPad = document.getElementById('sigPad');
+const sigCtx = sigPad.getContext('2d');
+let sigDrawing = false;
+
+sigBtn.addEventListener('click', ()=>{
+  sigModalBg.classList.add('open');
+  const rect = sigPad.getBoundingClientRect();
+  sigPad.width = rect.width * devicePixelRatio;
+  sigPad.height = rect.height * devicePixelRatio;
+  sigCtx.scale(devicePixelRatio, devicePixelRatio);
+  sigCtx.lineWidth = 2.4;
+  sigCtx.lineCap = 'round';
+  sigCtx.strokeStyle = '#13151F';
+});
+document.getElementById('sigCancel').addEventListener('click', ()=> sigModalBg.classList.remove('open'));
+document.getElementById('sigClear').addEventListener('click', ()=>{
+  sigCtx.clearRect(0,0,sigPad.width,sigPad.height);
+});
+sigPad.addEventListener('pointerdown', e=>{
+  sigDrawing = true;
+  const r = sigPad.getBoundingClientRect();
+  sigCtx.beginPath();
+  sigCtx.moveTo(e.clientX-r.left, e.clientY-r.top);
+});
+sigPad.addEventListener('pointermove', e=>{
+  if(!sigDrawing) return;
+  const r = sigPad.getBoundingClientRect();
+  sigCtx.lineTo(e.clientX-r.left, e.clientY-r.top);
+  sigCtx.stroke();
+});
+window.addEventListener('pointerup', ()=> sigDrawing=false);
+
+document.getElementById('sigUse').addEventListener('click', ()=>{
+  pendingSignatureDataUrl = sigPad.toDataURL('image/png');
+  sigModalBg.classList.remove('open');
+  setActiveTool('signature');
+  toolHint.textContent = 'Clique na página onde quer colocar a assinatura.';
+});
+
+/* export */
+document.getElementById('downloadBtn').addEventListener('click', async ()=>{
+  if(!originalBytes){ showToast('Envie um PDF primeiro.'); return; }
+  const btn = document.getElementById('downloadBtn');
+  btn.disabled = true;
+  btn.textContent = 'gerando...';
+  try{
+    const { PDFDocument, rgb } = PDFLib;
+    const pdfDoc = await PDFDocument.load(originalBytes);
+    const fontCache = {};
+    async function getFont(category, bold, italic){
+      const key = (category||'sans')+'|'+!!bold+'|'+!!italic;
+      if(!fontCache[key]) fontCache[key] = await pdfDoc.embedFont(standardFontFor(category||'sans', bold, italic));
+      return fontCache[key];
+    }
+    const pages = pdfDoc.getPages();
+
+    // pass 1: cover rectangles (redactions) first, so they never hide later content
+    for(const item of elements){
+      const page = pages[item.page-1];
+      if(!page || item.type!=='cover') continue;
+      const { width, height } = page.getSize();
+      const c = hexToRgb01(item.color || '#ffffff');
+      page.drawRectangle({
+        x: item.xPct*width,
+        y: height - item.yPct*height - item.hPct*height,
+        width: item.wPct*width,
+        height: item.hPct*height,
+        color: rgb(c.r,c.g,c.b),
+        borderWidth: 0
+      });
+    }
+
+    // pass 2: everything else on top
+    for(const item of elements){
+      const page = pages[item.page-1];
+      if(!page) continue;
+      const { width, height } = page.getSize();
+
+      if(item.type==='text'){
+        const font = await getFont(item.category, item.bold, item.italic);
+        const c = hexToRgb01(item.color);
+        const lines = (item.text||'').split('\n');
+        lines.forEach((ln, i)=>{
+          page.drawText(ln, {
+            x: item.xPct*width,
+            y: height - item.yPct*height - item.fontSize - i*(item.fontSize*1.15),
+            size: item.fontSize,
+            font,
+            color: rgb(c.r,c.g,c.b)
+          });
+        });
+      } else if(item.type==='rect'){
+        page.drawRectangle({
+          x: item.xPct*width,
+          y: height - item.yPct*height - item.hPct*height,
+          width: item.wPct*width,
+          height: item.hPct*height,
+          borderColor: rgb(0.18,0.43,0.93),
+          borderWidth: 1.5,
+          color: rgb(0.18,0.43,0.93),
+          opacity: 0.12,
+          borderOpacity: 1
+        });
+      } else if(item.type==='image'){
+        let embedded;
+        if(item.dataUrl.startsWith('data:image/png')){
+          embedded = await pdfDoc.embedPng(item.dataUrl);
+        } else {
+          embedded = await pdfDoc.embedJpg(item.dataUrl);
+        }
+        page.drawImage(embedded, {
+          x: item.xPct*width,
+          y: height - item.yPct*height - item.hPct*height,
+          width: item.wPct*width,
+          height: item.hPct*height
+        });
+      }
+    }
+
+    const outBytes = await pdfDoc.save();
+    const blob = new Blob([outBytes], { type:'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'documento-editado.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 4000);
+    showToast('PDF baixado com sucesso.');
+  }catch(err){
+    console.error(err);
+    showToast('Não foi possível gerar o PDF.');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V4M12 4l-4 4M12 4l4 4"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg> Baixar PDF editado';
+});
+</script>
+</body>
+</html>

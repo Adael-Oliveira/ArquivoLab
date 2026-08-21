@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversor de Arquivos online e gratuito — ArquivoLab</title>
+<meta name="description" content="Converta imagens e PDFs entre PNG, JPG, WEBP, GIF, BMP, SVG e PDF direto no navegador. Sem upload para servidores, sem cadastro, 100% grátis.">
+<meta name="keywords" content="conversor de arquivos, converter pdf para jpg, converter png para pdf, converter imagem online, conversor de imagens gratis">
+<link rel="canonical" href="https://arquivolab.app/conversor-de-arquivos.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ArquivoLab">
+<meta property="og:title" content="Conversor de Arquivos online e gratuito — ArquivoLab">
+<meta property="og:description" content="Converta imagens e PDFs entre PNG, JPG, WEBP, GIF, BMP, SVG e PDF direto no navegador. Sem upload, sem cadastro.">
+<meta property="og:url" content="https://arquivolab.app/conversor-de-arquivos.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Conversor de Arquivos ArquivoLab",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"},
+  "url": "https://arquivolab.app/conversor-de-arquivos.html"
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#FFFFFF; --bg-soft:#F4F6FC; --surface:#FFFFFF;
+    --border:#E6E9F2; --border-strong:#D7DCEA;
+    --text-primary:#13151F; --text-secondary:#5B5F70; --text-faint:#9297A6;
+    --blue:#2F6FED; --blue-dark:#1F4FC4; --blue-tint:#EAF1FE;
+    --purple:#7C5CFC; --pink:#E23F72; --pink-tint:#FDEBF0;
+    --green:#16A34A; --green-tint:#E9F8EF;
+    --amber:#E8A33D; --amber-tint:#FCF3E4;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text-primary);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,.disp{font-family:'Sora',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;}
+  .logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .crumb{font-size:13px;color:var(--text-faint);}
+  .crumb a{color:var(--text-secondary);}
+  .crumb a:hover{color:var(--blue);}
+
+  .hero-strip{padding:34px 0 8px;text-align:center;}
+  .hero-strip h1{font-size:26px;margin:0 0 6px;font-weight:700;}
+  .hero-strip p{margin:0;color:var(--text-secondary);font-size:14.5px;}
+
+  .wrap{max-width:880px;margin:0 auto;padding:28px 24px 80px;}
+
+  /* how-to */
+  .howto{display:flex;gap:14px;margin:8px 0 32px;flex-wrap:wrap;}
+  .howto-step{flex:1;min-width:200px;border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:var(--bg-soft);}
+  .howto-num{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px;}
+  .howto-title{font-size:13.5px;font-weight:600;margin-bottom:3px;}
+  .howto-sub{font-size:12.5px;color:var(--text-secondary);line-height:1.5;}
+
+  /* dropzone */
+  .dropzone{
+    border:1.5px dashed var(--border-strong);
+    border-radius:16px;
+    padding:48px 24px;
+    text-align:center;
+    background:var(--bg-soft);
+    cursor:pointer;
+  }
+  .dropzone:hover{border-color:var(--blue);}
+  .dropzone.drag{border-color:var(--blue);background:var(--blue-tint);}
+  .dropzone input{display:none;}
+  .dz-icon{width:52px;height:52px;border-radius:12px;background:var(--blue-tint);color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+  .dropzone.drag .dz-icon{background:#fff;}
+  .dz-title{font-size:15px;font-weight:600;margin-bottom:6px;}
+  .dz-sub{font-size:13px;color:var(--text-faint);font-family:'Sora',sans-serif;}
+
+  /* queue */
+  .queue{margin-top:36px;}
+  .queue-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .queue-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--text-secondary);}
+  .queue-actions{display:flex;gap:8px;}
+  .btn{
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    padding:9px 15px;border-radius:9px;border:1px solid var(--border-strong);
+    background:#fff;color:var(--text-secondary);cursor:pointer;
+  }
+  .btn:hover{border-color:var(--text-faint);color:var(--text-primary);}
+  .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .btn.primary:hover{background:var(--blue-dark);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  .queue-hint{font-size:12.5px;color:var(--text-secondary);margin:0 0 16px;}
+  .queue-hint strong{color:var(--text-primary);font-weight:600;}
+  .col-labels{display:flex;align-items:center;gap:16px;padding:0 18px;margin-bottom:8px;}
+  .col-labels .cl-info{flex:1;}
+  .col-labels span{font-family:'Sora',sans-serif;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-faint);}
+  .col-labels .cl-patch{display:flex;gap:0;width:164px;flex-shrink:0;}
+  .col-labels .cl-patch span:first-child{width:56px;text-align:center;}
+  .col-labels .cl-patch span:last-child{flex:1;text-align:center;padding-left:44px;color:var(--blue);}
+
+  .row{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 18px;background:#fff;
+    border:1px solid var(--border);border-radius:12px;
+    margin-bottom:10px;
+  }
+  .row-info{flex:1;min-width:0;}
+  .row-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .row-meta{font-size:12px;color:var(--text-faint);font-family:'Sora',sans-serif;margin-top:2px;}
+
+  .patch{display:flex;align-items:center;gap:0;flex-shrink:0;}
+  .jack{
+    font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.02em;
+    width:56px;height:32px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    border:1.5px solid var(--border-strong);color:var(--text-secondary);
+    background:var(--bg-soft);flex-shrink:0;
+  }
+  .jack.src.img{border-color:#BEE6D6;color:var(--green);background:var(--green-tint);}
+  .jack.src.pdf{border-color:#F6C9D8;color:var(--pink);background:var(--pink-tint);}
+
+  .cable{width:44px;height:1.5px;background:var(--border-strong);position:relative;overflow:visible;flex-shrink:0;}
+  .cable .dot{position:absolute;top:50%;left:0;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--blue);opacity:0;}
+  .cable.live{background:var(--blue-tint);}
+  .cable.live .dot{opacity:1;animation:travel 1s linear infinite;}
+  .cable.done{background:var(--green);}
+  @keyframes travel{0%{left:0;}100%{left:calc(100% - 6px);}}
+
+  select.jack-select{
+    font-family:'Sora',sans-serif;font-size:11px;font-weight:700;
+    width:64px;height:32px;border-radius:16px;text-align:center;text-align-last:center;
+    border:1.5px solid var(--blue-tint);color:var(--blue);background:var(--blue-tint);
+    appearance:none;-webkit-appearance:none;cursor:pointer;padding:0 6px;flex-shrink:0;
+  }
+  select.jack-select:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  select.jack-select:disabled{opacity:.5;cursor:not-allowed;}
+
+  .row-status{width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .spin{width:16px;height:16px;border-radius:50%;border:2px solid var(--blue-tint);border-top-color:var(--blue);animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .row-cta{flex-shrink:0;}
+  .dl-btn{
+    font-family:'Sora',sans-serif;font-size:12px;font-weight:700;
+    padding:7px 12px;border-radius:8px;background:var(--green-tint);color:var(--green);
+    border:1px solid var(--green-tint);cursor:pointer;text-decoration:none;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .dl-btn:hover{border-color:var(--green);}
+  .conv-btn{
+    font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+    padding:7px 12px;border-radius:8px;background:#fff;color:var(--blue);
+    border:1px solid var(--blue-tint);cursor:pointer;
+  }
+  .conv-btn:hover{background:var(--blue-tint);}
+  .remove-btn{background:none;border:none;color:var(--text-faint);cursor:pointer;padding:4px;flex-shrink:0;display:flex;align-items:center;}
+  .remove-btn:hover{color:var(--pink);}
+
+  .row-error{font-size:12px;color:var(--pink);font-family:'Sora',sans-serif;}
+
+  .empty-state{text-align:center;padding:28px 0 4px;color:var(--text-faint);font-family:'Sora',sans-serif;font-size:13px;}
+
+  .privacy-note{
+    display:flex;align-items:center;gap:8px;margin:20px 0 0;
+    font-size:12.5px;color:var(--green);font-family:'Sora',sans-serif;font-weight:600;
+  }
+
+  footer.site{padding:40px 0 28px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}
+  footer.site p{font-size:12.5px;color:var(--text-faint);margin:0;}
+  footer.site a{color:var(--blue);}
+
+  @media (max-width:560px){
+    .row{flex-wrap:wrap;}
+    .row-info{width:100%;order:1;}
+    .patch{order:2;}
+    .row-status,.row-cta,.remove-btn{order:3;}
+    .col-labels{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M7 12h10M7 17h6"/></svg></span>
+      ArquivoLab
+    </a>
+    <span class="crumb"><a href="index.html">Início</a> / Conversor de arquivos</span>
+  </div>
+</header>
+
+<div class="hero-strip">
+  <h1>Conversor de arquivos</h1>
+  <p>Converta imagens e PDFs entre PNG, JPG, WEBP, GIF, BMP, SVG e PDF.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="howto">
+    <div class="howto-step">
+      <div class="howto-num">01</div>
+      <div class="howto-title">Envie o arquivo</div>
+      <div class="howto-sub">Arraste para a área abaixo ou clique para escolher no seu computador.</div>
+    </div>
+    <div class="howto-step">
+      <div class="howto-num">02</div>
+      <div class="howto-title">Escolha o formato de saída</div>
+      <div class="howto-sub">Cada arquivo ganha uma linha com um menu à direita — abra-o e selecione a extensão desejada.</div>
+    </div>
+    <div class="howto-step">
+      <div class="howto-num">03</div>
+      <div class="howto-title">Converta e baixe</div>
+      <div class="howto-sub">Clique em "Converter" na linha do arquivo (ou "Converter tudo") e depois em "baixar".</div>
+    </div>
+  </div>
+
+  <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Selecionar arquivos para converter">
+    <input type="file" id="fileInput" multiple accept=".png,.jpg,.jpeg,.webp,.gif,.bmp,.svg,.pdf">
+    <div class="dz-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15V4M12 4l-4 4M12 4l4 4"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+    </div>
+    <div class="dz-title">Arraste arquivos aqui ou clique para escolher</div>
+    <div class="dz-sub">.png .jpg .webp .gif .bmp .svg .pdf</div>
+  </div>
+
+  <div class="privacy-note">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Nada sai do seu computador — a conversão inteira acontece localmente
+  </div>
+
+  <div class="queue">
+    <div class="queue-head">
+      <span class="queue-title">FILA DE CONVERSÃO</span>
+      <div class="queue-actions">
+        <button class="btn" id="clearBtn">Limpar</button>
+        <button class="btn primary" id="convertAllBtn">Converter tudo</button>
+      </div>
+    </div>
+    <p class="queue-hint" id="queueHint" style="display:none;">No menu à direita de cada arquivo, <strong>toque para abrir a lista e escolha a extensão</strong> para a qual quer converter — depois clique em "Converter".</p>
+    <div class="col-labels" id="colLabels" style="display:none;">
+      <span class="cl-info">arquivo</span>
+      <div class="cl-patch"><span>formato atual</span><span>converter para ▾</span></div>
+    </div>
+    <div id="rows"></div>
+    <div class="empty-state" id="emptyState">nenhum arquivo na fila ainda</div>
+  </div>
+
+</div>
+
+<footer class="site">
+  <p><a href="index.html">← ArquivoLab</a> · Também temos um <a href="editor-de-pdf.html">editor de PDF</a> gratuito</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const MIME = {
+  png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp',
+  gif:'image/gif', bmp:'image/bmp', svg:'image/svg+xml', pdf:'application/pdf'
+};
+
+let queue = [];
+let uid = 0;
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const rowsEl = document.getElementById('rows');
+const emptyState = document.getElementById('emptyState');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') fileInput.click(); });
+fileInput.addEventListener('change', e => addFiles(e.target.files));
+
+['dragenter','dragover'].forEach(evt=>{
+  dropzone.addEventListener(evt, e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+});
+['dragleave','drop'].forEach(evt=>{
+  dropzone.addEventListener(evt, e=>{ e.preventDefault(); dropzone.classList.remove('drag'); });
+});
+dropzone.addEventListener('drop', e=>{
+  if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+});
+
+function getExt(name){
+  const parts = name.split('.');
+  return parts.length>1 ? parts.pop().toLowerCase() : '';
+}
+function normExt(ext){ return ext==='jpeg' ? 'jpg' : ext; }
+function baseName(name){
+  const ext = getExt(name);
+  return ext ? name.slice(0, -(ext.length+1)) : name;
+}
+function isPdfExt(ext){ return ext==='pdf'; }
+function isImageExt(ext){ return !!MIME[ext] && MIME[ext].startsWith('image'); }
+
+function targetOptions(ext){
+  const n = normExt(ext);
+  if(isPdfExt(n)) return ['png','jpg'];
+  return ['png','jpg','webp','pdf'].filter(t=>t!==n);
+}
+
+function addFiles(fileList){
+  [...fileList].forEach(file=>{
+    const ext = normExt(getExt(file.name));
+    if(!isImageExt(ext) && !isPdfExt(ext)) return;
+    const opts = targetOptions(ext);
+    queue.push({
+      id: uid++, file, ext,
+      kind: isPdfExt(ext) ? 'pdf' : 'img',
+      target: opts[0], status: 'idle', error: null, downloads: []
+    });
+  });
+  fileInput.value = '';
+  render();
+}
+
+function removeRow(id){
+  queue = queue.filter(r=>r.id!==id);
+  render();
+}
+
+function fmtSize(bytes){
+  if(bytes < 1024) return bytes+' B';
+  if(bytes < 1024*1024) return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1024/1024).toFixed(1)+' MB';
+}
+
+function render(){
+  emptyState.style.display = queue.length ? 'none' : 'block';
+  document.getElementById('convertAllBtn').disabled = queue.length===0;
+  document.getElementById('colLabels').style.display = queue.length ? 'flex' : 'none';
+  document.getElementById('queueHint').style.display = queue.length ? 'block' : 'none';
+
+  rowsEl.innerHTML = queue.map(item=>{
+    const opts = targetOptions(item.ext);
+    const optionsHtml = opts.map(o=>`<option value="${o}" ${o===item.target?'selected':''}>${o.toUpperCase()}</option>`).join('');
+    const jackClass = item.kind==='pdf' ? 'pdf' : 'img';
+
+    let cableClass = '';
+    if(item.status==='converting') cableClass='live';
+    if(item.status==='done') cableClass='done';
+
+    let statusHtml = '';
+    if(item.status==='converting'){
+      statusHtml = `<div class="row-status"><div class="spin"></div></div>`;
+    }
+
+    let ctaHtml = '';
+    if(item.status==='idle'){
+      ctaHtml = `<button class="conv-btn" data-action="convert" data-id="${item.id}">Converter</button>`;
+    } else if(item.status==='converting'){
+      ctaHtml = '';
+    } else if(item.status==='done'){
+      if(item.downloads.length===1){
+        ctaHtml = `<a class="dl-btn" href="${item.downloads[0].url}" download="${item.downloads[0].name}">baixar ↓</a>`;
+      } else {
+        ctaHtml = `<button class="dl-btn" data-action="downloadzip" data-id="${item.id}">baixar .zip ↓</button>`;
+      }
+    } else if(item.status==='error'){
+      ctaHtml = `<button class="conv-btn" data-action="convert" data-id="${item.id}">tentar de novo</button>`;
+    }
+
+    const metaLine = item.status==='error'
+      ? `<span class="row-error">${item.error}</span>`
+      : `${fmtSize(item.file.size)} · ${item.kind==='pdf' ? 'documento' : 'imagem'}`;
+
+    return `
+    <div class="row" data-row="${item.id}">
+      <div class="row-info">
+        <div class="row-name" title="${item.file.name}">${item.file.name}</div>
+        <div class="row-meta">${metaLine}</div>
+      </div>
+      <div class="patch">
+        <div class="jack src ${jackClass}">${item.ext}</div>
+        <div class="cable ${cableClass}"><div class="dot"></div></div>
+        <select class="jack-select" data-id="${item.id}" title="Escolha o formato para o qual quer converter este arquivo" aria-label="Formato de saída para ${item.file.name}" ${item.status==='converting'?'disabled':''}>${optionsHtml}</select>
+      </div>
+      ${statusHtml}
+      <div class="row-cta">${ctaHtml}</div>
+      <button class="remove-btn" data-action="remove" data-id="${item.id}" aria-label="Remover arquivo" ${item.status==='converting'?'disabled':''}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>`;
+  }).join('');
+
+  rowsEl.querySelectorAll('select.jack-select').forEach(sel=>{
+    sel.addEventListener('change', e=>{
+      const id = Number(e.target.dataset.id);
+      const item = queue.find(r=>r.id===id);
+      if(item){ item.target = e.target.value; item.status='idle'; item.error=null; item.downloads=[]; render(); }
+    });
+  });
+  rowsEl.querySelectorAll('[data-action="remove"]').forEach(btn=>{
+    btn.addEventListener('click', e=> removeRow(Number(e.currentTarget.dataset.id)));
+  });
+  rowsEl.querySelectorAll('[data-action="convert"]').forEach(btn=>{
+    btn.addEventListener('click', e=> convertItem(Number(e.currentTarget.dataset.id)));
+  });
+  rowsEl.querySelectorAll('[data-action="downloadzip"]').forEach(btn=>{
+    btn.addEventListener('click', e=> downloadZip(Number(e.currentTarget.dataset.id)));
+  });
+}
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  queue.forEach(item=> item.downloads.forEach(d=>URL.revokeObjectURL(d.url)));
+  queue = [];
+  render();
+});
+document.getElementById('convertAllBtn').addEventListener('click', async ()=>{
+  for(const item of queue){
+    if(item.status==='idle' || item.status==='error'){
+      await convertItem(item.id);
+    }
+  }
+});
+
+async function imageFileToCanvas(file, target){
+  return new Promise((resolve,reject)=>{
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = ()=>{
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      const ctx = canvas.getContext('2d');
+      if(target==='jpg'){
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+      }
+      ctx.drawImage(img,0,0);
+      URL.revokeObjectURL(url);
+      resolve(canvas);
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('não foi possível ler esta imagem')); };
+    img.src = url;
+  });
+}
+
+async function convertImageFile(file, target){
+  const canvas = await imageFileToCanvas(file, target);
+  if(target==='pdf'){
+    const { jsPDF } = window.jspdf;
+    const w = canvas.width, h = canvas.height;
+    const pdf = new jsPDF({ orientation: w>h?'l':'p', unit:'px', format:[w,h] });
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    pdf.addImage(dataUrl, 'JPEG', 0, 0, w, h);
+    return [pdf.output('blob')];
+  }
+  const mime = target==='jpg' ? 'image/jpeg' : target==='webp' ? 'image/webp' : 'image/png';
+  const blob = await new Promise(res=> canvas.toBlob(b=>res(b), mime, 0.92));
+  if(!blob) throw new Error('este navegador não suporta exportar para '+target.toUpperCase());
+  return [blob];
+}
+
+async function convertPdfFile(file, target){
+  const buf = await file.arrayBuffer();
+  const doc = await pdfjsLib.getDocument({ data: buf }).promise;
+  const mime = target==='jpg' ? 'image/jpeg' : 'image/png';
+  const blobs = [];
+  for(let i=1;i<=doc.numPages;i++){
+    const page = await doc.getPage(i);
+    const viewport = page.getViewport({ scale: 2 });
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext('2d');
+    if(target==='jpg'){
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    const blob = await new Promise(res=> canvas.toBlob(b=>res(b), mime, 0.92));
+    blobs.push(blob);
+  }
+  return blobs;
+}
+
+async function convertItem(id){
+  const item = queue.find(r=>r.id===id);
+  if(!item) return;
+  item.status = 'converting';
+  item.error = null;
+  item.downloads.forEach(d=>URL.revokeObjectURL(d.url));
+  item.downloads = [];
+  render();
+
+  try{
+    const blobs = item.kind==='pdf'
+      ? await convertPdfFile(item.file, item.target)
+      : await convertImageFile(item.file, item.target);
+
+    const base = baseName(item.file.name);
+    item.downloads = blobs.map((blob, idx)=>{
+      const suffix = blobs.length>1 ? `-p${idx+1}` : '';
+      const name = `${base}${suffix}.${item.target}`;
+      return { url: URL.createObjectURL(blob), name, blob };
+    });
+    item.status = 'done';
+  }catch(err){
+    item.status = 'error';
+    item.error = err.message || 'falha na conversão';
+  }
+  render();
+}
+
+async function downloadZip(id){
+  const item = queue.find(r=>r.id===id);
+  if(!item || !item.downloads.length) return;
+  const zip = new JSZip();
+  item.downloads.forEach(d=> zip.file(d.name, d.blob));
+  const zipBlob = await zip.generateAsync({ type:'blob' });
+  const url = URL.createObjectURL(zipBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = baseName(item.file.name) + '.zip';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+
+render();
+</script>
+</body>
+</html>

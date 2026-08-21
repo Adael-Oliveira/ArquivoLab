@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArquivoLab — Editor de PDF e Conversor de Arquivos online e gratuito</title>
+<meta name="description" content="Edite PDFs e converta imagens e documentos (PNG, JPG, WEBP, PDF e mais) direto no navegador. Sem upload para servidores, sem cadastro, 100% grátis.">
+<meta name="keywords" content="editor de pdf online, conversor de arquivos, converter pdf para jpg, converter png para pdf, editar pdf gratis, ferramentas para arquivos">
+<link rel="canonical" href="https://arquivolab.app/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ArquivoLab">
+<meta property="og:title" content="ArquivoLab — Editor de PDF e Conversor de Arquivos">
+<meta property="og:description" content="Edite PDFs e converta arquivos entre formatos direto no navegador. Sem upload, sem cadastro, 100% grátis.">
+<meta property="og:url" content="https://arquivolab.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ArquivoLab — Editor de PDF e Conversor de Arquivos">
+<meta name="twitter:description" content="Edite PDFs e converta arquivos entre formatos direto no navegador. Sem upload, sem cadastro, 100% grátis.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ArquivoLab",
+  "url": "https://arquivolab.app/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://arquivolab.app/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "SoftwareApplication",
+      "position": 1,
+      "name": "Editor de PDF ArquivoLab",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://arquivolab.app/editor-de-pdf.html",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 2,
+      "name": "Conversor de Arquivos ArquivoLab",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://arquivolab.app/conversor-de-arquivos.html",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O ArquivoLab é realmente gratuito?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Sim. O editor de PDF e o conversor de arquivos são 100% gratuitos, sem limite de uso e sem necessidade de cadastro."}
+    },
+    {
+      "@type": "Question",
+      "name": "Meus arquivos são enviados para algum servidor?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Não. Todo o processamento acontece dentro do seu navegador. Seus arquivos nunca saem do seu dispositivo."}
+    },
+    {
+      "@type": "Question",
+      "name": "Quais formatos o conversor suporta?",
+      "acceptedAnswer": {"@type": "Answer", "text": "O conversor transforma imagens e PDFs entre os formatos PNG, JPG, WEBP, GIF, BMP, SVG e PDF."}
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso instalar algum programa?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Não. O ArquivoLab funciona inteiramente no navegador, em computador ou celular, sem instalação."}
+    }
+  ]
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#FFFFFF;
+    --bg-soft:#F4F6FC;
+    --surface:#FFFFFF;
+    --border:#E6E9F2;
+    --border-strong:#D7DCEA;
+    --text-primary:#13151F;
+    --text-secondary:#5B5F70;
+    --text-faint:#9297A6;
+    --blue:#2F6FED;
+    --blue-dark:#1F4FC4;
+    --blue-tint:#EAF1FE;
+    --purple:#7C5CFC;
+    --purple-tint:#F1EDFE;
+    --pink:#E23F72;
+    --pink-tint:#FDEBF0;
+    --green:#16A34A;
+    --green-tint:#E9F8EF;
+    --amber:#E8A33D;
+    --amber-tint:#FCF3E4;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{font-family:'Sora',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:19px;}
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-cta{
+    font-size:14px;font-weight:600;
+    background:var(--text-primary);color:#fff;
+    padding:10px 18px;border-radius:9px;
+  }
+  .nav-cta:hover{background:var(--blue-dark);}
+  .nav-toggle{display:none;background:none;border:1px solid var(--border-strong);border-radius:8px;padding:8px;}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(180deg,var(--bg-soft) 0%,#fff 100%);
+    padding:72px 0 88px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--blue);
+    background:var(--blue-tint);
+    padding:6px 12px;border-radius:20px;
+    margin-bottom:20px;
+  }
+  h1{
+    font-size:clamp(34px,4.4vw,50px);
+    line-height:1.1;
+    font-weight:800;
+    margin:0 0 20px;
+    letter-spacing:-.01em;
+  }
+  h1 .c-blue{color:var(--blue);}
+  h1 .c-green{color:var(--green);}
+  h1 .c-purple{color:var(--purple);}
+  .hero p.lede{
+    font-size:17px;color:var(--text-secondary);
+    max-width:46ch;margin:0 0 28px;
+  }
+  .hero p.lede strong{color:var(--text-primary);}
+  .badges{display:flex;gap:24px;flex-wrap:wrap;}
+  .badge{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--text-secondary);
+  }
+  .badge .ic{
+    width:26px;height:26px;border-radius:7px;
+    background:var(--green-tint);color:var(--green);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+
+  /* hero visual */
+  .hero-visual{position:relative;height:380px;}
+  .hv-card{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:280px;
+    background:#fff;border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 20px 50px -18px rgba(20,30,60,.22);
+    padding:18px;
+    z-index:3;
+  }
+  .hv-card-head{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+  .hv-dot{width:8px;height:8px;border-radius:50%;background:var(--border-strong);}
+  .hv-body{
+    background:var(--bg-soft);
+    border-radius:12px;
+    padding:26px 16px;
+    text-align:center;
+  }
+  .hv-shield{
+    width:44px;height:44px;border-radius:10px;
+    background:var(--blue-tint);color:var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 12px;
+  }
+  .hv-body p{margin:0;font-size:13px;font-weight:600;color:var(--text-primary);}
+  .hv-body span{font-size:12px;color:var(--text-faint);}
+
+  .chip{
+    position:absolute;
+    width:52px;height:52px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:#fff;
+    box-shadow:0 12px 24px -10px rgba(20,30,60,.28);
+  }
+  .chip.pdf{background:#E23F72;top:8%;left:6%;}
+  .chip.png{background:#16A34A;bottom:14%;left:2%;}
+  .chip.jpg{background:var(--amber);top:6%;right:4%;}
+  .chip.doc{background:var(--blue);bottom:6%;right:8%;}
+  .chip.swap{
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    top:50%;right:-2%;transform:translateY(-50%);
+    width:44px;height:44px;
+  }
+  .link-line{
+    position:absolute;border-top:1.5px dashed var(--border-strong);
+  }
+
+  /* TOOLS SECTION */
+  .section{padding:88px 0;}
+  .section-head{text-align:center;max-width:560px;margin:0 auto 44px;}
+  .section-head h2{font-size:30px;margin:0 0 10px;font-weight:700;}
+  .section-head p{color:var(--text-secondary);font-size:15px;margin:0;}
+
+  .tools-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  .tool-card{
+    border-radius:18px;
+    padding:32px;
+    border:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .tool-card.editor{background:linear-gradient(160deg,var(--pink-tint) 0%,#fff 55%);}
+  .tool-card.converter{background:linear-gradient(160deg,var(--blue-tint) 0%,#fff 55%);}
+  .tool-icon{
+    width:48px;height:48px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;color:#fff;
+  }
+  .tool-card.editor .tool-icon{background:var(--pink);}
+  .tool-card.converter .tool-icon{background:var(--blue);}
+  .tool-card h3{font-size:21px;margin:0 0 8px;font-weight:700;}
+  .tool-card p{font-size:14.5px;color:var(--text-secondary);margin:0 0 24px;max-width:38ch;}
+  .tool-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:600;
+    background:#fff;border:1px solid var(--border-strong);
+    padding:11px 18px;border-radius:10px;
+    width:fit-content;
+    margin-top:auto;
+  }
+  .tool-card.editor .tool-cta{color:var(--pink);}
+  .tool-card.converter .tool-cta{color:var(--blue);}
+  .tool-cta:hover{border-color:currentColor;}
+  .tool-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .tag{
+    font-size:11.5px;font-weight:600;
+    background:rgba(255,255,255,.7);
+    border:1px solid var(--border);
+    padding:4px 10px;border-radius:16px;
+    color:var(--text-secondary);
+    font-family:'Sora',sans-serif;
+  }
+
+  /* FEATURES */
+  .features{
+    background:var(--bg-soft);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .features-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+  }
+  .feature{display:flex;gap:14px;align-items:flex-start;}
+  .feature .ic{
+    width:38px;height:38px;border-radius:10px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .feature.f1 .ic{background:var(--purple-tint);color:var(--purple);}
+  .feature.f2 .ic{background:var(--green-tint);color:var(--green);}
+  .feature.f3 .ic{background:var(--amber-tint);color:var(--amber);}
+  .feature.f4 .ic{background:var(--pink-tint);color:var(--pink);}
+  .feature h4{margin:0 0 4px;font-size:14.5px;font-weight:700;}
+  .feature p{margin:0;font-size:13px;color:var(--text-secondary);}
+
+  /* FAQ */
+  .faq-list{max-width:720px;margin:0 auto;}
+  .faq-item{
+    border-bottom:1px solid var(--border);
+    padding:20px 0;
+  }
+  .faq-q{
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;font-weight:600;font-size:15.5px;
+  }
+  .faq-q .chev{transition:transform .15s ease;color:var(--text-faint);flex-shrink:0;}
+  .faq-item.open .faq-q .chev{transform:rotate(180deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;
+    font-size:14.5px;color:var(--text-secondary);
+    transition:max-height .2s ease;
+  }
+  .faq-item.open .faq-a{max-height:200px;padding-top:12px;}
+
+  footer.site{
+    padding:48px 0 32px;
+    border-top:1px solid var(--border);
+  }
+  .footer-grid{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;
+    margin-bottom:32px;
+  }
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin:0 0 14px;}
+  .footer-col a{display:block;font-size:14px;color:var(--text-secondary);margin-bottom:10px;}
+  .footer-col a:hover{color:var(--text-primary);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:13px;color:var(--text-faint);
+    padding-top:24px;border-top:1px solid var(--border);
+  }
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:280px;order:-1;}
+    .tools-grid{grid-template-columns:1fr;}
+    .features-grid{grid-template-columns:1fr 1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a href="#" class="logo">
+      <span class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M7 12h10M7 17h6"/></svg>
+      </span>
+      ArquivoLab
+    </a>
+    <nav class="nav-links">
+      <a href="#ferramentas">Ferramentas</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#ferramentas" class="nav-cta">Abrir ferramentas</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          plataforma de arquivos gratuita
+        </span>
+        <h1>Suas ferramentas de arquivo,<br><span class="c-blue">sem sair</span> do <span class="c-purple">navegador</span>.</h1>
+        <p class="lede">Edite PDFs e converta imagens e documentos em segundos. <strong>Nenhum arquivo é enviado para servidores</strong> — tudo roda no seu próprio dispositivo.</p>
+        <div class="badges">
+          <span class="badge"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>Privacidade em primeiro lugar</span>
+          <span class="badge"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></span>Processamento local</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="chip pdf">PDF</div>
+        <div class="chip png">PNG</div>
+        <div class="chip jpg">JPG</div>
+        <div class="chip doc">DOC</div>
+        <div class="chip swap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg>
+        </div>
+        <div class="hv-card">
+          <div class="hv-card-head">
+            <span class="hv-dot"></span><span class="hv-dot"></span><span class="hv-dot"></span>
+          </div>
+          <div class="hv-body">
+            <div class="hv-shield">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <p>Seus arquivos, seu controle.</p>
+            <span>nada sai do seu dispositivo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ferramentas">
+    <div class="container">
+      <div class="section-head">
+        <h2>O que você quer fazer hoje?</h2>
+        <p>Duas ferramentas, um só lugar — escolha a que resolve seu problema agora.</p>
+      </div>
+      <div class="tools-grid">
+        <article class="tool-card editor">
+          <div class="tool-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="tool-tags">
+            <span class="tag">texto</span><span class="tag">imagens</span><span class="tag">assinatura</span>
+          </div>
+          <h3>Editor de PDF</h3>
+          <p>Adicione texto, imagens, formas e assinatura aos seus PDFs direto no navegador, sem instalar nada.</p>
+          <a href="editor-de-pdf.html" class="tool-cta">Abrir editor de PDF
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="tool-card converter">
+          <div class="tool-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </div>
+          <div class="tool-tags">
+            <span class="tag">PNG</span><span class="tag">JPG</span><span class="tag">WEBP</span><span class="tag">PDF</span>
+          </div>
+          <h3>Conversor de Arquivos</h3>
+          <p>Converta imagens e PDFs entre si em poucos cliques — PNG, JPG, WEBP, GIF, BMP, SVG e PDF.</p>
+          <a href="conversor-de-arquivos.html" class="tool-cta">Abrir conversor
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="como-funciona">
+    <div class="container section">
+      <div class="features-grid">
+        <div class="feature f1">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+          <div><h4>Privado</h4><p>Seus arquivos nunca saem do seu dispositivo.</p></div>
+        </div>
+        <div class="feature f2">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div><h4>Seguro</h4><p>Processamento 100% local, no seu navegador.</p></div>
+        </div>
+        <div class="feature f3">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></span>
+          <div><h4>Rápido</h4><p>Resultado instantâneo, sem fila e sem upload.</p></div>
+        </div>
+        <div class="feature f4">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg></span>
+          <div><h4>Gratuito</h4><p>Todas as ferramentas são grátis, sempre.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <h2>Perguntas frequentes</h2>
+        <p>O que as pessoas mais perguntam sobre o ArquivoLab.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">O ArquivoLab é realmente gratuito?<span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Sim. O editor de PDF e o conversor de arquivos são 100% gratuitos, sem limite de uso e sem necessidade de cadastro.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Meus arquivos são enviados para algum servidor?<span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Não. Todo o processamento acontece dentro do seu navegador. Seus arquivos nunca saem do seu dispositivo.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Quais formatos o conversor suporta?<span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div>
+          <div class="faq-a">O conversor transforma imagens e PDFs entre os formatos PNG, JPG, WEBP, GIF, BMP, SVG e PDF.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Preciso instalar algum programa?<span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Não. O ArquivoLab funciona inteiramente no navegador, em computador ou celular, sem instalação.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col" style="max-width:280px;">
+        <a href="#" class="logo" style="margin-bottom:10px;">
+          <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M7 12h10M7 17h6"/></svg></span>
+          ArquivoLab
+        </a>
+        <p style="font-size:13.5px;color:var(--text-secondary);margin:10px 0 0;">Ferramentas gratuitas para editar e converter arquivos, sem sair do navegador.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Ferramentas</h5>
+        <a href="editor-de-pdf.html">Editor de PDF</a>
+        <a href="conversor-de-arquivos.html">Conversor de arquivos</a>
+      </div>
+      <div class="footer-col">
+        <h5>Sobre</h5>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#faq">Perguntas frequentes</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ArquivoLab. Todos os arquivos processados localmente no seu navegador.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click', ()=>{
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
