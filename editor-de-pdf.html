@@ -74,7 +74,12 @@
   .hero-strip h1{font-size:26px;margin:0 0 6px;font-weight:700;}
   .hero-strip p{margin:0;color:var(--text-secondary);font-size:14.5px;}
 
-  .editor-wrap{max-width:1160px;margin:0 auto;padding:28px 24px 80px;}
+  .editor-wrap{
+  width:100%;
+  max-width:1440px;
+  margin:0 auto;
+  padding:28px 20px 80px;
+}
 
   .upload-panel{
     border:1.5px dashed var(--border-strong);
@@ -90,11 +95,15 @@
   .upload-title{font-weight:600;font-size:15.5px;margin-bottom:6px;}
   .upload-sub{font-size:13px;color:var(--text-faint);}
 
-  .workspace{display:none;gap:20px;}
+  .workspace{
+  display:none;
+  gap:16px;
+  align-items:flex-start;
+}
   .workspace.active{display:flex;}
 
   .toolbar{
-    width:222px;flex-shrink:0;
+    width:200px;flex-shrink:0;
     position:sticky;top:78px;align-self:flex-start;
     display:flex;flex-direction:column;gap:6px;
     background:var(--surface);border:1px solid var(--border);border-radius:14px;
@@ -130,7 +139,7 @@
   .tb-new:hover{color:var(--text-primary);}
 
   .side-panel{
-    width:230px;flex-shrink:0;
+    width:210px;flex-shrink:0;
     position:sticky;top:78px;align-self:flex-start;
     background:var(--surface);border:1px solid var(--border);border-radius:14px;
     padding:16px;
@@ -160,15 +169,37 @@
     cursor:pointer;background:none;flex-shrink:0;
   }
 
-  .pages{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:24px;}
-  .page-shell{
-    position:relative;
-    background:#fff;
-    box-shadow:0 4px 24px -8px rgba(20,30,60,.18);
-    border:1px solid var(--border);
-    line-height:0;
-  }
-  .page-shell canvas{display:block;max-width:100%;height:auto;}
+.pages{
+  flex:1;
+  min-width:0;
+  width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:24px;
+  overflow-x:auto;
+  overflow-y:visible;
+  padding:0 4px 20px;
+}
+
+.page-shell{
+  position:relative;
+  background:#fff;
+  box-shadow:0 4px 24px -8px rgba(20,30,60,.18);
+  border:1px solid var(--border);
+  line-height:0;
+  max-width:100%;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.page-shell canvas{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+}
+  
   .page-overlay{position:absolute;inset:0;}
   .page-overlay.mode-rect{cursor:crosshair;}
   .page-overlay.mode-edit{cursor:pointer;}
@@ -415,7 +446,19 @@ async function loadPdf(file){
 
 async function renderPage(pageNum){
   const page = await pdfDocProxy.getPage(pageNum);
-  const viewport = page.getViewport({ scale: 1.4 });
+  const baseViewport = page.getViewport({ scale: 1.0 });
+
+const availableWidth = Math.max(
+  300,
+  pagesEl.clientWidth
+);
+
+const scale = Math.min(
+  1.4,
+  availableWidth / baseViewport.width
+);
+
+const viewport = page.getViewport({ scale });
   pageViewportCache[pageNum] = viewport;
 
   const canvas = document.createElement('canvas');
